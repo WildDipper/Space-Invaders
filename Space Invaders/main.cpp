@@ -7,16 +7,16 @@
 
 using namespace std;
 
-void Help() { //Help Menu
+void help() { //Help Menu
 
-	string line;
 	ifstream gameLogo("gameLogo.txt"); //Opening Game Logo file
 
 	system("CLS");
 	UIKit::frame(0, 0, 118, 28, COLOR_BRIGHT_PURPLE); //creating a frame
 	if (gameLogo.is_open()) //only perform if the file is open
 	{
-			UIKit::color(COLOR_BRIGHT_LBLUE);
+		string line;
+		UIKit::color(COLOR_BRIGHT_LBLUE);
 			for (int j = 0; getline(gameLogo, line); j++) { // Print each line in the file
 				UIKit::gotoXY(15, 2 + j);
 				cout << line << '\n';
@@ -63,11 +63,11 @@ void Help() { //Help Menu
 	return;
 }
 
-/*void about() {
+void about() {
 	system("CLS");
 
 	string line;
-	ifstream gameLogo("gameLogo.txt"); //opeing game logo file
+	ifstream gameLogo("gameLogo.txt"); //opening game logo file
 
 	system("CLS");
 	UIKit::frame(0, 0, 118, 28, COLOR_BRIGHT_RED); //creating a frame
@@ -95,27 +95,27 @@ void Help() { //Help Menu
 	UIKit::gotoXY(45, 25);
 	system("pause");
 	return;
-} */
+} 
 
-void saveScore(int score) { //For saving the high score 
-	string PlayerName;
+void save_score(const int score) { //For saving the high score 
+	string player_name;
 	ofstream gameScoreFile("gameData.ini"); //opening the Game score file (write only)
 	UIKit::gotoXY(43, 22);
 	cout << "ENTER YOUR NAME : ";
-	cin >> PlayerName;
+	cin >> player_name;
 	if (gameScoreFile.is_open()) { //only save if the file is available
-		gameScoreFile << PlayerName << endl;
+		gameScoreFile << player_name << endl;
 		gameScoreFile << score;
 		gameScoreFile.close();
 	}
 }
 
-void winGame(int score,int level, unsigned int gameHighScore) {
+void winGame(const int score, const int level, const unsigned int game_high_score) {
 	//PlaySound(TEXT("sound/win.wav"), NULL, SND_FILENAME | SND_ASYNC);
-	string line;
 	ifstream winLogo("winLogo.txt"); //opening the wining game Logo file (read only mode)
 	if (winLogo.is_open()) //if file is open
 	{
+		string line;
 		for (int i = 9; i < 15; i++) {//outer loop change color
 			UIKit::frame(0, 0, 118, 28, COLOR_BRIGHT_PURPLE);
 			UIKit::color(i);
@@ -123,9 +123,9 @@ void winGame(int score,int level, unsigned int gameHighScore) {
 				UIKit::gotoXY(35, 5 + j);
 				cout << line << '\n';
 			}
-			if (score > gameHighScore) { //if the new score is Highscore
+			if (score > game_high_score) { //if the new score is High score
 				UIKit::gotoXY(48, 16);
-				cout << "NEW HIGHSCORE!!!!";
+				cout << "NEW HIGH-SCORE!!!!";
 			}
 			winLogo.clear(); //clearing the the EOF flag in the file pointer after reading the end of file
 			winLogo.seekg(0, ios::beg); //moving the file pointer to the starting position of the file
@@ -145,20 +145,20 @@ void winGame(int score,int level, unsigned int gameHighScore) {
 	UIKit::gotoXY(50, 20);
 	cout << "LEVEL : " << level;
 
-	if (score > gameHighScore) { //printing only if the score is new highscore
+	if (score > game_high_score) { //printing only if the score is new high score
 		UIKit::gotoXY(48, 16);
-		cout << "NEW HIGHSCORE!!!!";
-		saveScore(score); //saving the new highscore
+		cout << "NEW HIGH-SCORE!!!!";
+		save_score(score); //saving the new high score
 	}
 
 	UIKit::gotoXY(45, 25);
 	system("pause");
 	PlaySound(NULL, 0, 0);
 }
-void loseGame(int score,int level, unsigned int gameHighScore) {
+void loseGame(const int score, const int level, const unsigned int game_high_score) {
 	//PlaySound(TEXT("sound/lose.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	string line;
-	ifstream loseLogo("loseLogo.txt"); //opeing the Lose Logo file (read only mode)
+	ifstream loseLogo("loseLogo.txt"); //opening the Lose Logo file (read only mode)
 	if (loseLogo.is_open()) //if the file is open perform operation
 	{
 		system("CLS");
@@ -175,10 +175,10 @@ void loseGame(int score,int level, unsigned int gameHighScore) {
 	UIKit::gotoXY(50, 20);
 	cout << "LEVEL : " << level;
 
-	if (score > gameHighScore) { //printing the highscore if the new score is highscore
+	if (score > game_high_score) { //printing the high score if the new score is high score
 		UIKit::gotoXY(48, 16);
-		cout << "NEW HIGHSCORE!!!!";
-		saveScore(score);
+		cout << "NEW HIGH-SCORE!!!!";
+		save_score(score);
 	}
 
 	UIKit::gotoXY(45, 25);
@@ -186,11 +186,11 @@ void loseGame(int score,int level, unsigned int gameHighScore) {
 	PlaySound(NULL, 0, 0);
 }
 
-void quitGame(int score, int level, unsigned int gameHighScore) {
-	string line;
-	ifstream quitLogo("quitLogo.txt"); //opeing quit logo from file (read only mode)
+void quit_game(int score, int level, unsigned int gameHighScore) {
+	ifstream quitLogo("quitLogo.txt"); //opening quit logo from file (read only mode)
 	if (quitLogo.is_open()) //perform operation only if the file is open
 	{
+		string line;
 		system("CLS");
 		UIKit::frame(0, 0, 118, 28, COLOR_BRIGHT_PURPLE); //creating frame
 		UIKit::color(COLOR_BRIGHT_LBLUE);
@@ -205,12 +205,12 @@ void quitGame(int score, int level, unsigned int gameHighScore) {
 }
 
 int main() {
-	int Selection;
+	int selection;
 	UIKit::visibleCursor(false); //setting the typing cursor as disabled
 	string line;
 
 	// PlaySound(TEXT("sound/intro.wav"), NULL, SND_FILENAME | SND_ASYNC);
-	ifstream gameLogo("gameLogo.txt"); //opeing the Game Logo file (read only mode)
+	ifstream gameLogo("gameLogo.txt"); //opening the Game Logo file (read only mode)
 	if (gameLogo.is_open()) //only if the file is open perform operation 
 	{
 		for (int i = 9; i < 15; i++) { //outer loop with changing colors
@@ -221,23 +221,23 @@ int main() {
 				cout << line << '\n';
 			}
 			gameLogo.clear(); //clear the EOF flag in the file pointer when it reaches the end of the file
-			gameLogo.seekg(0, ios::beg); //moving the file pointer to the strating position of the file
+			gameLogo.seekg(0, ios::beg); //moving the file pointer to the starting position of the file
 			Sleep(500); //small delay to make it animate
 			system("CLS");
 		}
 	}
 
 	unsigned int gameHighScore = 0;
-	string PlayerName;
-	fstream gameScoreFile; 
+	string player_name;
+	fstream game_score_file; 
 
 	Game new_game;
 	int game_result;
 
 	// Create main menu, 3 items, top left corner on line 5, column 8;
 	// see Menu.h
-	string Choices[] = { "PLAY","HELP","ABOUT","EXIT" };
-	Menu Main_Menu("", Choices, 4, 10, 50);
+	string choices[] = { "PLAY","HELP","ABOUT","EXIT" };
+	Menu main_menu("", choices, 4, 10, 50);
 
 	while(true) {
 		system("CLS");
@@ -249,22 +249,22 @@ int main() {
 		}
 		gameLogo.clear(); //clearing the EOF flag
 		gameLogo.seekg(0, ios::beg); //moving file pointer to starting position
-		Selection = Main_Menu.displayMenu(); //displaying the menu
+		selection = main_menu.displayMenu(); //displaying the menu
 		
-		switch (Selection) {
+		switch (selection) {
 		case 1:
 			// play the game
 			game_result = new_game.Play();
 
 			// ### TODO Better display after game
 			//
-			gameScoreFile.open("gameData.ini", ios::in); //opeing the Highscore from the file (read only mode)
-			if (gameScoreFile.is_open()) {
-				std::getline(gameScoreFile, PlayerName); //getting the player name
-				gameScoreFile >> gameHighScore; //getting highscore
-				gameScoreFile.close(); //close the file
+			game_score_file.open("gameData.ini", ios::in); //opening the High score from the file (read only mode)
+			if (game_score_file.is_open()) {
+				std::getline(game_score_file, player_name); //getting the player name
+				game_score_file >> gameHighScore; //getting high score
+				game_score_file.close(); //close the file
 			}
-			UIKit::setWindowDimensions(0, 0, 119, 29); //reseting the game Window domension after returning from playing the game
+			UIKit::setWindowDimensions(0, 0, 119, 29); //reseting the game Window dimension after returning from playing the game
 			switch (game_result) {
 			case 0:
 				//lose condition
@@ -276,22 +276,24 @@ int main() {
 				break;
 			case 2:
 				//quit condition
-				quitGame(new_game.getScore(), new_game.getLevel(), gameHighScore);
+				quit_game(new_game.getScore(), new_game.getLevel(), gameHighScore);
 				break;
+			default: ;
 			}
 			break;
 		case 2:
 			// display help
-			Help();
+			help();
 			break; 
-		/*case 3:
+		case 3:
 			// display about
 			about();
-			break; */
+			break; 
 		case 4:
 			// end program
 			exit(0);
 			break;
+		default: ;
 		}
 	}
 	gameLogo.close(); //closing the game logo file;
