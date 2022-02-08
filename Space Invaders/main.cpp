@@ -111,7 +111,7 @@ void save_score(const int score) { //For saving the high score
 }
 
 void winGame(const int score, const int level, const unsigned int game_high_score) {
-	//PlaySound(TEXT("sound/win.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound(TEXT("sound/win.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	ifstream winLogo("winLogo.txt"); //opening the wining game Logo file (read only mode)
 	if (winLogo.is_open()) //if file is open
 	{
@@ -156,7 +156,7 @@ void winGame(const int score, const int level, const unsigned int game_high_scor
 	PlaySound(NULL, 0, 0);
 }
 void loseGame(const int score, const int level, const unsigned int game_high_score) {
-	//PlaySound(TEXT("sound/lose.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound(TEXT("sound/lose.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	string line;
 	ifstream loseLogo("loseLogo.txt"); //opening the Lose Logo file (read only mode)
 	if (loseLogo.is_open()) //if the file is open perform operation
@@ -209,7 +209,7 @@ int main() {
 	UIKit::visibleCursor(false); //setting the typing cursor as disabled
 	string line;
 
-	// PlaySound(TEXT("sound/intro.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	 PlaySound(TEXT("sound/intro.wav"), NULL, SND_FILENAME | SND_ASYNC);
 	ifstream gameLogo("gameLogo.txt"); //opening the Game Logo file (read only mode)
 	if (gameLogo.is_open()) //only if the file is open perform operation 
 	{

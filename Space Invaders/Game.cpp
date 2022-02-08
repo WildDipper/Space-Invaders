@@ -16,13 +16,13 @@ void Game::Ship_Laser_Create() {
 
 	for (int i = 0; i < Nb_ShipLasers; i++) {
 		if (Ship_Lasers[i]->isAlive == false) { //check if any unused ship lasers
-		//	PlaySound(TEXT("sound/ship_Laser.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			PlaySound(TEXT("sound/ship_Laser.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			Ship_Lasers[i]->restart(x, y); //if found restart the ship laser with new coordinates
 			return;
 		}
 	}
 	if (Nb_ShipLasers < Max_Nb_Ship_Lasers) { // if total ship lasers created are less than maximum number of ship lasers
-		//PlaySound(TEXT("sound/ship_Laser.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		PlaySound(TEXT("sound/ship_Laser.wav"), NULL, SND_FILENAME | SND_ASYNC);
 		Ship_Lasers[Nb_ShipLasers] = new Laser_Ship(x, y); //create a new ship laser
 		Nb_ShipLasers++; //increase ship laser count
 	}
@@ -77,7 +77,7 @@ void Game::Create_Enemy_Lasers_Periodically() {
 	if ((((float)t) / CLOCKS_PER_SEC) > Laser_Period) { //if the duration in greater than the Laser_Period
 		last_Laser_time = clock(); //put the current time in last_Laser_time
 
-		//PlaySound(TEXT("sound/enemy_Laser.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		PlaySound(TEXT("sound/enemy_Laser.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
 		for (int i = 0; i < Nb_ETs; i++) {// for each Fast enemy that is alive in the screen
 			if (ET_List[i]->isAlive)
@@ -102,7 +102,7 @@ void Game::Create_Enemy_Laser(int x, int y) {
 			return;
 		}
 	}
-	Enemy_Lasers[Nb_EnemyLasers] = new Laser_Enemies(x, y); //if no enemy lasers are found unsed create a new one
+	Enemy_Lasers[Nb_EnemyLasers] = new Laser_Enemies(x, y); //if no enemy lasers are found unused create a new one
 	Nb_EnemyLasers++; //increase the enemy laser count
 }
 
