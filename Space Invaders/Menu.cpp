@@ -11,12 +11,12 @@ Menu::Menu(string title, string* choiceList, int nbItem, int startLine, int star
 	this->_nbItem= nbItem;
 	this->cornerUL.X= startColumn;
 	this->cornerUL.Y= startLine;
-	//initialising the positions
+	//initializing the positions
 	init();
 }
 
 void Menu::init(){
-	//initialisation of the positions and the choice
+	//initialization of the positions and the choice
 	this->choice=1;
 	this->_currentPos.X = cornerUL.X;
 	this->_currentPos.Y = cornerUL.Y+2;
