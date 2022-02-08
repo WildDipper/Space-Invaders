@@ -7,7 +7,7 @@
 
 using namespace std;
 
-/*void Help() { //Help Menu
+void Help() { //Help Menu
 
 	string line;
 	ifstream gameLogo("gameLogo.txt"); //Opening Game Logo file
@@ -62,7 +62,7 @@ using namespace std;
 	system("pause");
 	return;
 }
-*/
+
 /*void about() {
 	system("CLS");
 
@@ -280,11 +280,11 @@ int main() {
 				break;
 			}
 			break;
-	/*	case 2:
+		case 2:
 			// display help
 			Help();
 			break; 
-		case 3:
+		/*case 3:
 			// display about
 			about();
 			break; */
