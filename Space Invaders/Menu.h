@@ -30,15 +30,15 @@ public:
 	~Menu();
 
 private:
-	string _title;
-	int _nbItem;
-	string* _choiceList;
-	COORD cornerUL;
+	string title_;
+	int nb_item_;
+	string* choice_list_;
+	COORD corner_ul_;
 	//internal management
-	COORD _currentPos;
-	COORD _lastPos;
-	COORD _firstPos;
-	int choice;
+	COORD current_pos_;
+	COORD last_pos_;
+	COORD first_pos_;
+	int choice_;
 
 protected:
 	void move(COORD origin, COORD target);

@@ -2,50 +2,50 @@
 #include "Menu.h"
 
 Menu::Menu(string title, string* choiceList, int nbItem, int startLine, int startColumn){
-	this->_title=title;
-	this->_choiceList = new string[nbItem];
+	this->title_=title;
+	this->choice_list_ = new string[nbItem];
 	for(int i=0;i<nbItem;i++){
-		this->_choiceList[i]=choiceList[i];
+		this->choice_list_[i]=choiceList[i];
 	}
 	choiceList;
-	this->_nbItem= nbItem;
-	this->cornerUL.X= startColumn;
-	this->cornerUL.Y= startLine;
+	this->nb_item_= nbItem;
+	this->corner_ul_.X= startColumn;
+	this->corner_ul_.Y= startLine;
 	//initializing the positions
 	init();
 }
 
 void Menu::init(){
 	//initialization of the positions and the choice
-	this->choice=1;
-	this->_currentPos.X = cornerUL.X;
-	this->_currentPos.Y = cornerUL.Y+2;
-	this->_firstPos= _currentPos;
-	this->_lastPos= _firstPos;
-	this->_lastPos.Y= _firstPos.Y+2*(_nbItem-1);
+	this->choice_=1;
+	this->current_pos_.X = corner_ul_.X;
+	this->current_pos_.Y = corner_ul_.Y+2;
+	this->first_pos_= current_pos_;
+	this->last_pos_= first_pos_;
+	this->last_pos_.Y= first_pos_.Y+2*(nb_item_-1);
 }
 
 Menu::~Menu(){
-	delete []this->_choiceList;
+	delete []this->choice_list_;
 
 }
 
 int Menu::displayMenu(){
 	
-	COORD nextPos=_currentPos;
+	COORD nextPos=current_pos_;
 	//draw the menu
-	gotoXY(cornerUL);
-	cout<<_title<<endl;
-	for(int i=0; i<_nbItem;i++){
-		gotoXY(cornerUL.X+4, _firstPos.Y+(2*i));
-		cout<<_choiceList[i]<<endl;
+	gotoXY(corner_ul_);
+	cout<<title_<<endl;
+	for(int i=0; i<nb_item_;i++){
+		gotoXY(corner_ul_.X+4, first_pos_.Y+(2*i));
+		cout<<choice_list_[i]<<endl;
 	}
 	//get arrow input
 	int key;
 	//move(_currentPos, _firstPos);
-	move(_currentPos, _currentPos);
+	move(current_pos_, current_pos_);
 	do{	
-		nextPos=_currentPos;
+		nextPos=current_pos_;
 		key=_getch();
 		if(key==224){
 			key= _getch();
@@ -53,41 +53,42 @@ int Menu::displayMenu(){
 		//move
 		switch(key){
 		case 80:	//down key
-			if(_currentPos.Y==_lastPos.Y) //if we are already down
+			if(current_pos_.Y==last_pos_.Y) //if we are already down
 			{
-				move(_currentPos, _firstPos);
-				_currentPos = _firstPos;
-				choice=1;
+				move(current_pos_, first_pos_);
+				current_pos_ = first_pos_;
+				choice_=1;
 			}
 			else
 			{
 				nextPos.Y+=2;
-				move(_currentPos, nextPos);
-				_currentPos.Y+=2;
-				choice++;
+				move(current_pos_, nextPos);
+				current_pos_.Y+=2;
+				choice_++;
 			}
 			break;	
 		case 72:	//up key
-			if(_currentPos.Y==_firstPos.Y) //if we are already up
+			if(current_pos_.Y==first_pos_.Y) //if we are already up
 			{
-				move(_currentPos,_lastPos);
-				_currentPos=_lastPos;
-				choice=_nbItem;
+				move(current_pos_,last_pos_);
+				current_pos_=last_pos_;
+				choice_=nb_item_;
 			}
 			else
 			{
 				nextPos.Y-=2;
-				move(_currentPos, nextPos);
-				_currentPos.Y-=2;
-				choice--;
+				move(current_pos_, nextPos);
+				current_pos_.Y-=2;
+				choice_--;
 			}
 			break;
+		default: ;
 		}
 
 	}while(key !=13);
 	//return the choice
 	
-return choice;
+return choice_;
 }
 
 
